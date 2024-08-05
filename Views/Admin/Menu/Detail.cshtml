@@ -1,0 +1,63 @@
+﻿@model RestaurantBooking.Models.Menu
+
+@{
+    ViewData["Title"] = "Detail";
+    ViewData["Active"] = "Menu";
+}
+
+<h1>Detail</h1>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Title)</h4>
+    <hr />
+    <div class="row">
+        <div class="col-4">
+            <img class="text-center img-thumbnail" src="https://nibble-images.b-cdn.net/nibble/original_images/ramen-enak-di-bogor-00.jpg" />
+        </div>
+        <div class="col-8">
+            <div class="d-flex flex-column justify-content-between">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        ID Menu
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.ID)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Nama
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Deskripsi
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Jenis
+                    </dt>
+                    <dd class="col-sm-10">
+                        @{
+                            var parsedValue = Model.MenuType == 0 ? "Makanan" : "Minuman";
+                        }
+                        @Html.DisplayFor(model => parsedValue)
+                    </dd>
+                    <dt class="col-sm-2">
+                        Kategori
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.MenuCategory.Title)
+                    </dd>
+                </dl>
+                <div>
+                    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+

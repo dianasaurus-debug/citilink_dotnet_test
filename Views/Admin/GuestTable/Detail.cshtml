@@ -1,0 +1,93 @@
+﻿@model RestaurantBooking.Models.GuestTable
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Active"] = "GuestTable";
+}
+
+<h1>Detail</h1>
+
+<div>
+    <h6>Meja Nomor @(Model.TableNumber)</h6>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex flex-column justify-content-between">
+                <dl class="row">
+                   
+                    <dt class="col-sm-4">
+                        Nomor Meja
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.TableNumber)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Jumlah Kursi
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.SeatCount)
+                    </dd>
+                  
+                </dl>
+                <div>
+                    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+            <div class="col-8 my-5">
+                <h5 class="mb-3">Daftar Reservasi di Meja No.@Model.TableNumber</h5>
+                @if (Model.Reservations.Count == 0)
+                {
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <h6 class="text-center mb-3">Tidak ada data reservasi</h6>
+                    </div>
+                }
+                else
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Waktu
+                                </th>
+                                <th scope="col">
+                                    Jumlah Orang
+                                </th>
+                                <th scope="col">
+                                    Customer
+                                </th>
+                                <th scope="col">
+                                    No HP
+                                </th>
+                                <th scope="col">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var reservasi in Model.Reservations)
+                            {
+                                <tr>
+                                    <td>@reservasi.ReservationTime</td>
+                                    <td>@reservasi.GuestCount</td>
+                                    <td>@reservasi.Customer.FullName</td>
+                                    <td>@reservasi.Customer.Phone</td>
+                                    <td class="d-flex">
+                                        <a type="button" asp-action="Detail" asp-route-id="@reservasi.ID" asp-controller="Reservation" class="btn btn-success me-2"><i class="fas fa-eye"></i></a>
+                                        <a type="button" class="btn btn-primary me-2"><i class="fas fa-edit"></i></a>
+                                        <a type="button" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+
+
+            </div>
+        </div>
+        
+    </div>
+</div>

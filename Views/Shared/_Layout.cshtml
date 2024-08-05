@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RestaurantBooking</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="~/RestaurantBooking.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">Start Bootstrap</div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Home" id="Home" asp-action="Index">Home</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Menu" id="Menu" asp-action="Index">Menu</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="MenuCategory" id="MenuCategory" asp-action="Index">Kategori Menu</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="GuestTable" id="GuestTable" asp-action="Index">Data Meja</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-area="" asp-controller="Reservation" id="Reservation" asp-action="AdminIndex">Reservasi</a>
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item active"><a class="nav-link" href="#!">Halaman Customer</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Super Admin</a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    @using (Html.BeginForm("Logout", "Admin", FormMethod.Post))
+                                    {
+                                        <button type="submit" class="dropdown-item text-danger" href="#!">Logout</button>
+                                    }
+
+                                    
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="container-fluid" style="padding : 25px">
+                @RenderBody()
+            </div>
+            
+        </div>
+    </div>
+    @if (ViewData["Active"] != null)
+    {
+        <script type="text/javascript">document.getElementById("@ViewData["Active"]").classList.add("active")</script>
+    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

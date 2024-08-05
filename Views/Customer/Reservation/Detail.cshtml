@@ -1,0 +1,13 @@
+﻿@model RestaurantBooking.Models.Reservation
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Active"] = "Reservation";
+
+}
+
+
+<div class="container-fluid py-5">
+    Kode reservasi anda @Model.ReservationCode
+</di>

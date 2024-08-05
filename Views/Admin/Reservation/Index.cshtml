@@ -1,0 +1,90 @@
+﻿@model PaginatedList<RestaurantBooking.Models.Reservation>
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Active"] = "Reservation";
+
+}
+
+<div>
+    <h5>Daftar Menu</h5>
+
+    <div class="d-flex justify-content-between align-items-center">
+        @using (Html.BeginForm("AdminIndex", "Reservation", FormMethod.Get))
+        {
+            <div class="my-5 d-flex align-items-center">
+                <div class="me-2">
+                    Cari kategori menu: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                    <input type="submit" value="Search" />
+                </div>
+                <a asp-action="AdminIndex"
+                   asp-route-sortOrder="@ViewBag.CurrentSort"
+                   asp-route-pageNumber="@(Model.PageIndex)"
+                   asp-route-currentFilter="" class="btn btn-link text-danger">Clear</a>
+            </div>
+        }
+    </div>
+    Page @(Model.TotalPages < Model.PageIndex ? 0 : Model.PageIndex) of @Model.TotalPages
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.ActionLink("Nama", "Index", new { sortOrder = "Title", currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th scope="col">
+                    @Html.ActionLink("Kode", "Index", new { sortOrder = "ReservationCode", currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th scope="col">
+                    @Html.ActionLink("Waktu", "Index", new { sortOrder = "ReservationTime", currentFilter = ViewBag.CurrentFilter })
+                </th>
+                <th scope="col">
+                    Jumlah Orang
+                </th>
+                <th scope="col">
+                    Berlaku
+                </th>
+                <th scope="col">Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                    <td>@reservation.Customer.FullName</td>
+                    <td>@reservation.ReservationCode</td>
+                    <td>@reservation.ReservationTime</td>
+                    <td>@reservation.GuestCount</td>
+                    <td>@(reservation.IsValid == true ? "Yes" : "No")</td>
+                    <td class="d-flex">
+                        <a asp-action="AdminDetail" asp-route-id="@reservation.ID" asp-controller="Reservation" type="button" class="btn btn-primary me-2"><i class="fas fa-eye"></i></a>
+                        <button type="button" class="btn btn-success me-2"><i class="fas fa-check"></i></button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <a asp-action="AdminIndex"
+       asp-route-sortOrder="@ViewBag.CurrentSort"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewBag.CurrentFilter"
+       class="btn btn-outline-primary @prevDisabled">
+        Previous
+    </a>
+    <a asp-action="AdminIndex"
+       asp-route-sortOrder="@ViewBag.CurrentSort"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewBag.CurrentFilter"
+       class="btn btn-outline-primary @nextDisabled">
+        Next
+    </a>
+</div>
+

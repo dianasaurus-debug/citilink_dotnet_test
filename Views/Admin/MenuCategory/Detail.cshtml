@@ -1,0 +1,99 @@
+﻿@model RestaurantBooking.Models.MenuCategory
+
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Active"] = "MenuCategory";
+
+}
+
+<h1>Detail</h1>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Title)</h4>
+    <hr />
+    <div class="row">
+        <div class="col-4">
+            <div class="d-flex flex-column justify-content-between">
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        ID Kategori
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.ID)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Nama
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Deskripsi
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                    <dt class="col-sm-4">
+                        Jenis
+                    </dt>
+                    <dd class="col-sm-8">
+                        @{
+                            var parsedValue = Model.MenuType == 0 ? "Makanan" : "Minuman";
+                        }
+                        @Html.DisplayFor(model => parsedValue)
+                    </dd>
+                </dl>
+                <div>
+                    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <h5 class="mb-3">Daftar Menu di Kategori @Model.Title</h5>
+            @if (Model.Menus.Count == 0) {
+               <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h6 class="text-center mb-3">Tidak ada data menu @(Model.MenuType == 0 ? "makanan" : "minuman")</h6>
+                    <a asp-action="Create" class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Menu</a>
+               </div>
+            } else
+            {
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            Nama
+                        </th>
+                        <th scope="col">
+                            Jenis
+                        </th>
+                        <th scope="col">Deskripsi</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var menu in Model.Menus)
+                    {
+                        <tr>
+                            <td>@menu.Title</td>
+                            <td>@(menu.MenuType == 0 ? "Makanan" : "Minuman")</td>
+                            <td>@menu.Description</td>
+                            <td class="d-flex">
+                                <a type="button" asp-action="Detail" asp-route-id="@menu.ID" asp-controller="Menu" class="btn btn-success me-2"><i class="fas fa-eye"></i></a>
+                                <a type="button" class="btn btn-primary me-2"><i class="fas fa-edit"></i></a>
+                                <a type="button" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            }
+
+           
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model RestaurantBooking.Models.GuestTable
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Active"] = "GuestTable";
+
+}
+
+<h1>Create</h1>
+
+<form asp-action="Store">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-8">
+            <div class="d-flex flex-column justify-content-between">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        Nomor Meja
+                    </dt>
+                    <dd class="col-sm-10">
+                        <div class="form-group">
+                            <input type="number" asp-for="TableNumber" class="form-control" />
+                            <span asp-validation-for="TableNumber" class="text-danger"></span>
+                        </div>
+                    </dd>
+                    <dt class="col-sm-2">
+                        Jumlah Kursi
+                    </dt>
+                    <dd class="col-sm-10">
+                        <div class="form-group">
+                            <input type="number" asp-for="SeatCount" class="form-control" />
+                            <span asp-validation-for="SeatCount" class="text-danger"></span>
+                        </div>
+                    </dd>
+                </dl>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

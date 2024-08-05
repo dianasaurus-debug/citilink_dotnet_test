@@ -1,0 +1,108 @@
+﻿@model RestaurantBooking.Models.Menu
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Active"] = "Menu";
+
+}
+
+<h1>Create</h1>
+
+<h4>Menu</h4>
+<hr />
+
+<form enctype="multipart/form-data" asp-action="Store">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col-4">
+        <h6>Upload gambar menu</h6>
+            <img id="imgPreview" class="text-center img-thumbnail" src="https://www.svgrepo.com/show/508699/landscape-placeholder.svg" />
+            <input type="file"
+                   asp-for="ImageFile"
+                   id="photo" />
+           
+    </div>
+    <div class="col-8">
+        <div class="d-flex flex-column justify-content-between">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Nama
+                </dt>
+                <dd class="col-sm-10">
+                        <div class="form-group">
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                </dd>
+                <dt class="col-sm-2">
+                    Deskripsi
+                </dt>
+                <dd class="col-sm-10">
+                        <div class="form-group">
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                </dd>
+                <dt class="col-sm-2">
+                    Jenis
+                </dt>
+                <dd class="col-sm-10">
+                        <div class="form-group">
+                            <select asp-for="MenuType" class="form-control">
+                                <option value="0">Makanan</option>
+                                <option value="1">Minuman</option>
+                            </select>
+                            <span asp-validation-for="MenuType" class="text-danger"></span>
+                        </div>
+                </dd>
+                <dt class="col-sm-2">
+                    Kategori
+                </dt>
+                <dd class="col-sm-10">
+                        <div class="form-group">
+                            <select asp-for="MenuCategoryId" class="form-control">
+                                @foreach (var menuCategory in ViewBag.menuCategories)
+                                {
+                                    <option value="@menuCategory.ID">@menuCategory.Title</option>
+                                }
+                               
+                            </select>
+                            <span asp-validation-for="MenuCategoryId" class="text-danger"></span>
+                        </div>
+                </dd>
+            </dl>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+        </div>
+
+    </div>
+</div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(() => {
+            const photoInp = $("#photo");
+            let file;
+
+            photoInp.change(function (e) {
+                file = this.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function (event) {
+                        $("#imgPreview")
+                            .attr("src", event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+}

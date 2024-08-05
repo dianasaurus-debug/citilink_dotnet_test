@@ -1,0 +1,74 @@
+﻿@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+@{
+    ViewData["Title"] = "This is Our Menu!";
+    ViewData["Active"] = "Menu";
+}
+
+<div class="container-fluid" style="padding-top : 50px;padding-bottom : 50px">
+    <h1 class="display-5 mb-50">Our Delicious <span class="text-danger">Menu</span></h1>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true"><h4>Foods</h4></button>
+            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false"><h4>Drinks</h4></button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="row mt-4 mx-4" style="text-align : left !important">
+                @foreach (var foodCategory in ViewBag.foodsByCategory)
+                {
+                    <div class="col-4">
+                        <div class="mb-4">
+                            <h4 class="mb-2">@foodCategory.Title</h4>
+                            <hr />
+                        </div>
+                        @foreach (var food in foodCategory.Menus)
+                        {
+                            <div class="row gx-2 align-items-center">
+                                <div class="col-4">
+                                    <img class="img-thumbnail" src="https://nibble-images.b-cdn.net/nibble/original_images/ramen-enak-di-bogor-00.jpg" style="border-radius: 50%;" />
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="text-danger mb-2">@food.Title</h6>
+                                    <p>
+                                        @food.Description
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="row mt-4 mx-4" style="text-align : left !important">
+                @foreach (var drinkCategory in ViewBag.drinksByCategory)
+                {
+                    <div class="col-4">
+                        <div class="mb-4">
+                            <h4 class="mb-2">@drinkCategory.Title</h4>
+                            <hr />
+                        </div>
+                        @foreach (var food in drinkCategory.Menus)
+                        {
+                            <div class="row gx-2 align-items-center">
+                                <div class="col-4">
+                                    <img class="img-thumbnail" src="https://nibble-images.b-cdn.net/nibble/original_images/ramen-enak-di-bogor-00.jpg" style="border-radius: 50%;" />
+                                </div>
+                                <div class="col-8">
+                                    <h6 class="text-danger mb-2">@food.Title</h6>
+                                    <p>
+                                        @food.Description
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    
+</div>
