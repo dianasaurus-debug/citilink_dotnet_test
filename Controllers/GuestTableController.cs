@@ -112,7 +112,7 @@ namespace RestaurantBooking.Controllers
                 return NotFound();
             }
 
-            var menuDetail = await db.MenuCategories
+            var menuDetail = await db.GuestTables
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 

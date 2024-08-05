@@ -30,7 +30,7 @@ namespace RestaurantBooking.Controllers
         {
             //try
             //{
-            //if (ModelState.IsValid)
+            //if (modelstate.isvalid)
             //{
 
                 Customer newCustomer = new Customer { FullName = reservation.Customer.FullName, Phone = reservation.Customer.FullName, Email = reservation.Customer.Email };
@@ -123,6 +123,27 @@ namespace RestaurantBooking.Controllers
                 return NotFound();
             }
             return View("~/Views/Customer/Reservation/Detail.cshtml", reservationDetail);
+        }
+
+        [Route("/reservation/mark-done/{id?}")]
+        [Authorize]
+        public async Task<IActionResult> AdminMarkAsDone(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var reservationDetail = db.Reservations
+               .AsNoTracking()
+               .FirstOrDefault(r => r.ID == id);
+
+            if (reservationDetail == null)
+            {
+                return NotFound();
+            }
+            reservationDetail.IsValid = false;
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(AdminIndex));
         }
 
         [Route("admin/reservation")]

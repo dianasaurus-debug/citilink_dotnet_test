@@ -21,7 +21,7 @@
                 var parsedImage = "https://www.svgrepo.com/show/508699/landscape-placeholder.svg";
                 if (Model.ImagePath != null)
                 {
-                    parsedImage = "~/images/" + Model.ImagePath;
+                    parsedImage = $"{Context.Request.Scheme}://{Context.Request.Host.Value}/images/{Model.ImagePath}";
                 }
             }
             <img id="imgPreview" class="text-center img-thumbnail" src="@parsedImage" />

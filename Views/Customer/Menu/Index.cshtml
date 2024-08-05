@@ -28,7 +28,14 @@
                         {
                             <div class="row gx-2 align-items-center">
                                 <div class="col-4">
-                                    <img class="img-thumbnail" src="https://nibble-images.b-cdn.net/nibble/original_images/ramen-enak-di-bogor-00.jpg" style="border-radius: 50%;" />
+                                    @{
+                                        var parsedImage = "https://www.svgrepo.com/show/508699/landscape-placeholder.svg";
+                                        if (food.ImagePath != null)
+                                        {
+                                            parsedImage = $"{Context.Request.Scheme}://{Context.Request.Host.Value}/images/{food.ImagePath}";
+                                        }
+                                    }
+                                    <img class="img-thumbnail" src="@parsedImage" style="border-radius: 50%;" />
                                 </div>
                                 <div class="col-8">
                                     <h6 class="text-danger mb-2">@food.Title</h6>
@@ -55,7 +62,14 @@
                         {
                             <div class="row gx-2 align-items-center">
                                 <div class="col-4">
-                                    <img class="img-thumbnail" src="https://nibble-images.b-cdn.net/nibble/original_images/ramen-enak-di-bogor-00.jpg" style="border-radius: 50%;" />
+                                    @{
+                                        var parsedImage = "https://www.svgrepo.com/show/508699/landscape-placeholder.svg";
+                                        if (food.ImagePath != null)
+                                        {
+                                            parsedImage = $"{Context.Request.Scheme}://{Context.Request.Host.Value}/images/{food.ImagePath}";
+                                        }
+                                    }
+                                    <img class="img-thumbnail" src="@parsedImage" style="border-radius: 50%;" />
                                 </div>
                                 <div class="col-8">
                                     <h6 class="text-danger mb-2">@food.Title</h6>

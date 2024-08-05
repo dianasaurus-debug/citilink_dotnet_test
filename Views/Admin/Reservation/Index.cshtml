@@ -60,7 +60,12 @@
                     <td>@(reservation.IsValid == true ? "Yes" : "No")</td>
                     <td class="d-flex">
                         <a asp-action="AdminDetail" asp-route-id="@reservation.ID" asp-controller="Reservation" type="button" class="btn btn-primary me-2"><i class="fas fa-eye"></i></a>
-                        <button type="button" class="btn btn-success me-2"><i class="fas fa-check"></i></button>
+                        @if(reservation.IsValid==true){
+                            <a asp-action="AdminMarkAsDone" asp-route-id="@reservation.ID" asp-controller="Reservation" type="button" class="btn btn-success me-2">Mark as done</a>
+                        } else
+                        {
+                            <button disabled type="button" class="btn btn-success me-2">Mark as done</button>
+                        }
                     </td>
                 </tr>
             }

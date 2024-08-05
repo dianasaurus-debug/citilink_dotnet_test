@@ -12,7 +12,14 @@
     <hr />
     <div class="row">
         <div class="col-4">
-            <img class="text-center img-thumbnail" src="https://nibble-images.b-cdn.net/nibble/original_images/ramen-enak-di-bogor-00.jpg" />
+            @{
+                var parsedImage = "https://www.svgrepo.com/show/508699/landscape-placeholder.svg";
+                if (Model.ImagePath != null)
+                {
+                    parsedImage = $"{Context.Request.Scheme}://{Context.Request.Host.Value}/images/{Model.ImagePath}";
+                }
+            }
+            <img class="text-center img-thumbnail" src="@parsedImage" />
         </div>
         <div class="col-8">
             <div class="d-flex flex-column justify-content-between">
